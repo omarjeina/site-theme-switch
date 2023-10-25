@@ -8,16 +8,39 @@ const light = 'white', dark = 'black';
 
 let theme = true; // true = light, false = dark
 
+
+if(localStorage.getItem('theme') !== null){
+    if(JSON.parse(localStorage.getItem('theme'))){
+        darkTheme();
+    } else{
+        lightTheme();
+    }
+}
+
+
 switchButton.addEventListener('click', () => {
     if(!theme){
-        documentStyle.setProperty('--bg-color', dark);
-        documentStyle.setProperty('--text-color', light);
-        switchButton.innerHTML = lightChar;
-        theme = !theme;
+        darkTheme();
     } else{
-        documentStyle.setProperty('--bg-color', light);
-        documentStyle.setProperty('--text-color', dark);
-        switchButton.innerHTML = darkChar;
-        theme = !theme;
+        lightTheme();
     }
 }); 
+
+
+function lightTheme(){
+    documentStyle.setProperty('--bg-color', light);
+    documentStyle.setProperty('--text-color', dark);
+    switchButton.innerHTML = darkChar;
+    theme = !theme;
+    localStorage.setItem('theme', theme);
+}
+
+
+function darkTheme(){
+    documentStyle.setProperty('--bg-color', dark);
+    documentStyle.setProperty('--text-color', light);
+    switchButton.innerHTML = lightChar;
+    theme = !theme;
+    localStorage.setItem('theme', theme);
+}
+
